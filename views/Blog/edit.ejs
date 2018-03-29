@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+<form action="/blog/<%= foundPost._id %>?_method=PUT" method="POST" class="measure center">
+    <legend class="f4 fw6 ph0 mh0">Edit <%= foundPost.name %></legend>
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+        <div class="mt3">
+            <label class="db fw6 lh-copy f6" for="email-address">Name</label>
+            <input type="text" name="blog[name]" class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" value="<%= foundPost.name %>">
+        </div>
+        <div class="mv3">
+            <label class="db fw6 lh-copy f6" for="email-address">Image</label>
+            <input type="text" name="blog[image]" class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" value="<%= foundPost.image %>">
+        </div>
+        <div class="form-group">
+            <label class="db fw6 lh-copy f6" for="email-address">Text</label>
+            <input type="text" name="blog[description]" class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" value="<%= foundPost.description %>">
+        </div>
+    </fieldset>
+    <button class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib">Update!</button>
+</form>
+
+
+<% include ../partials/footer %>

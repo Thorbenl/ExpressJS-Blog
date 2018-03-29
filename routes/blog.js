@@ -34,13 +34,10 @@ router.post("/",isLoggedIn, function(req, res){
         description: newBlogPostDescription,
         author: author
     };
-    console.log(req.user);
-
     Blog.create(newBlogPost, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
-            console.log(newlyCreated);
             res.redirect("/blog");
         }
 
@@ -64,6 +61,39 @@ router.get('/:id', function (req,res) {
     });
 });
 
+
+// EDIT POST ROUTE
+router.get("/:id/edit", function(req, res){
+    Blog.findById(req.params.id, function(err, foundPost){
+        res.render("Blog/edit", {foundPost: foundPost});
+    });
+});
+
+// UPDATE POST ROUTE
+router.put("/:id", function(req, res){
+    // find and update the correct post
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedPost){
+        if(err){
+            res.redirect("/blog");
+        } else {
+            //redirect somewhere(show page)
+            res.redirect("/blog/" + req.params.id);
+        }
+    });
+});
+
+
+// Delete - let a user delete a blogpost blogpost
+// DESTROY CAMPGROUND ROUTE
+router.delete("/:id", function(req, res){
+    Blog.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/blog");
+        } else {
+            res.redirect("/blog");
+        }
+    });
+});
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){

@@ -24,16 +24,23 @@ router.post("/",isLoggedIn, function(req, res){
     const newBlogPostName = req.body.name;
     const newBlogPostImage = req.body.image;
     const newBlogPostDescription = req.body.description;
+    const author = {
+        id: req.user._id,
+        username: req.user.username
+    };
     const newBlogPost = {
         name: newBlogPostName,
         image: newBlogPostImage,
-        description: newBlogPostDescription
+        description: newBlogPostDescription,
+        author: author
     };
+    console.log(req.user);
 
     Blog.create(newBlogPost, function(err, newlyCreated){
         if(err){
             console.log(err);
         } else {
+            console.log(newlyCreated);
             res.redirect("/blog");
         }
 

@@ -4,6 +4,13 @@ const blogSchema = new Schema({
     name: String,
     image: String,
     description: String,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
     date: {
         type: Date,
         default: Date.now

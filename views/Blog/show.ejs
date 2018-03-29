@@ -10,12 +10,16 @@
                 <p class="times lh-copy measure f4 mt0"><%= blogposts.description %></p>
             </section>
             <a href="/blog/<%= blogposts._id %>/comments/new">Add New Comment</a>
-            <a href="/blog/<%= blogposts._id %>/edit">Edit</a>
-            <form action="/blog/<%= blogposts._id %>?_method=DELETE" method="POST">
+
+            <% if(currentUser && blogposts.author.id.equals(currentUser._id)) { %>
+                      <a href="/blog/<%= blogposts._id %>/edit">Edit</a>
+                     <form action="/blog/<%= blogposts._id %>?_method=DELETE" method="POST">
                 <button>Delete</button>
             </form>
+            <% } %>
         </div>
     </div>
+
     <div class="pa3 pa4-ns bt b--black mt-5">
         <% blogposts.comments.forEach(function(comment){ %>
                 <strong><%= comment.author.username %></strong>
@@ -27,7 +31,8 @@
         </form
         <% }) %>
     </div>
-</article>
+
+ </article>
 
 
 

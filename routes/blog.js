@@ -63,14 +63,18 @@ router.get('/:id', function (req,res) {
 
 
 // EDIT POST ROUTE
-router.get("/:id/edit", function(req, res){
-    Blog.findById(req.params.id, function(err, foundPost){
-        res.render("Blog/edit", {foundPost: foundPost});
-    });
+router.get("/:id/edit", checkBlogpostOwnership, function(req, res){
+        Blog.findById(req.params.id, function(err, foundPost){
+            if(err) {
+                res.redirect("/blog");
+            } else {
+                res.render("Blog/edit", {foundPost: foundPost});
+            }
+        });
 });
 
 // UPDATE POST ROUTE
-router.put("/:id", function(req, res){
+router.put("/:id",checkBlogpostOwnership, function(req, res){
     // find and update the correct post
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updatedPost){
         if(err){
@@ -83,9 +87,8 @@ router.put("/:id", function(req, res){
 });
 
 
-// Delete - let a user delete a blogpost blogpost
-// DESTROY CAMPGROUND ROUTE
-router.delete("/:id", function(req, res){
+// Delete - let a user delete a blogpost
+router.delete("/:id",checkBlogpostOwnership, function(req, res){
     Blog.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.redirect("/blog");
@@ -95,6 +98,9 @@ router.delete("/:id", function(req, res){
     });
 });
 
+
+
+//Middlewares
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -102,5 +108,23 @@ function isLoggedIn(req, res, next){
     res.redirect("/login");
 }
 
+function checkBlogpostOwnership(req, res, next) {
+    if(req.isAuthenticated()) {
+        Blog.findById(req.params.id, function(err, foundPost){
+            if(err) {
+                res.redirect("back");
+            } else {
+                if(foundPost.author.id.equals(req.user._id)) {
+                   next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+
+    } else {
+        res.redirect("back")
+    }
+}
 
 module.exports = router;

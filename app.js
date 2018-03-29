@@ -5,6 +5,7 @@ const express     = require('express'),
     mongoose      = require("mongoose"),
     seedDB        = require("./seeds"),
     methodOverride = require('method-override'),
+    flash          = require('connect-flash'),
 
     //Authentication
     passport      = require("passport"),
@@ -54,6 +55,8 @@ db.once('open', () => {
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
+
+
 app.use(methodOverride("_method"));
 
 // ====================

@@ -89,7 +89,7 @@ router.put("/:id",middleware.checkBlogpostOwnership, function(req, res){
 
 
 // Delete - let a user delete a blogpost
-router.delete("/:id",middleware.checkBlogpostOwnership(), function(req, res){
+router.delete("/:id",middleware.checkBlogpostOwnership, function(req, res){
     Blog.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.redirect("/blog");

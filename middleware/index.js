@@ -1,15 +1,16 @@
-const Blog    = require("../models/blog"),
+var   Blog    = require("../models/blog"),
       Comment = require("../models/comment");
 
 // all the middleware goes here
-const middlewareObj = {};
+var middlewareObj = {};
 
 middlewareObj.checkBlogpostOwnership = function(req, res, next) {
-    if(req.isAuthenticated()) {
+    if(req.isAuthenticated()){
         Blog.findById(req.params.id, function(err, foundPost){
-            if(err) {
+            if(err){
                 res.redirect("back");
-            } else {
+            }  else {
+                // does user own the blogpost?
                 if(foundPost.author.id.equals(req.user._id)) {
                     next();
                 } else {
@@ -17,11 +18,11 @@ middlewareObj.checkBlogpostOwnership = function(req, res, next) {
                 }
             }
         });
-
     } else {
-        res.redirect("back")
+        res.redirect("back");
     }
 }
+
 
 middlewareObj.checkCommentOwnership = function(req, res, next) {
     if(req.isAuthenticated()){
@@ -48,5 +49,6 @@ middlewareObj.isLoggedIn = function(req, res, next){
     }
     res.redirect("/login");
 }
+
 
 module.exports = middlewareObj;

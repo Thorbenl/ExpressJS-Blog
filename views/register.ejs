@@ -1,0 +1,27 @@
+<% include ./partials/header %>
+
+<div class="container has-text-centered">
+    <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-grey">Sign Up</h3>
+        <div class="box">
+            <form action="/register" method="post">
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="text" name="username" placeholder="Userame" autofocus="">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input is-large" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <button class="button is-block is-danger is-bold is-large is-fullwidth">Register now!</button>
+            </form>
+        </div>
+        <p class="has-text-grey">
+            <a href="/login">Login</a> &nbsp;·&nbsp;
+        </p>
+    </div>
+</div>
+<% include ./partials/footer %>

@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<article class="pa3 pa5-ns">
+    <div class="cf">
+        <div class="fl pa3 pa4-ns bg-white black-70 measure-narrow f3 times">
+            <header class="bb b--black-70 pv4">
+                <h3 class="f2 fw7 ttu tracked lh-title mt0 mb3 avenir"><%= blogposts.name %></h3>
+            </header>
+            <section class="pt5 pb4">
+                <p class="times lh-copy measure f4 mt0"><%= blogposts.description %></p>
+                <p class="times lh-copy measure f4 mt0"><%= blogposts.date %></p>
+            </section>
+            <a class="btn btn-success" href="/blog/<%= blogposts._id %>/comments/new">Add New Comment</a>
+        </div>
+    </div>
+    <div class="pa3 pa4-ns bt b--black mt-5">
+        <% blogposts.comments.forEach(function(comment){ %>
+                <strong><%= comment.author.username %></strong>
+                <p>
+                    <%= comment.text %>
+                </p>
+        <% }) %>
+    </div>
+</article>
+
+
+
+
+
+<% include ../partials/footer %>

@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+	<form action="/blog" method="POST" class="measure center">
+	  <legend class="f4 fw6 ph0 mh0">Create a new blogpost</legend>
+	  <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+	  <div class="mt3">
+		<label class="db fw6 lh-copy f6" for="email-address">Name</label>
+	    <input type="text" name="name" class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" placeholder="Enter Postname">
+	  </div>
+	  <div class="mv3">
+		<label class="db fw6 lh-copy f6" for="email-address">Image</label>
+	    <input type="text" name="image" class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" placeholder="Put the URL to an img">
+	  </div>
+	  <div class="form-group">
+		<label class="db fw6 lh-copy f6" for="email-address">Text</label>
+	    <input type="text" name="description" class="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" placeholder="Type your post here">
+	  </div>
+	  </fieldset>
+	  <button class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib">Add Blogpost</button>
+	</form>
+
+
+<% include ../partials/footer %>

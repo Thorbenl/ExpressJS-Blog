@@ -1,0 +1,69 @@
+<% include ../partials/header %>
+
+<main role="main">
+    <section class="articles">
+        <div class="column is-8 is-offset-2">
+            <section class="hero is-danger is-bold is-small promo-block">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title">
+                            Let's read some!
+                        </h1>
+                        <h2 class="subtitle">
+                            maybe...
+                        </h2>
+                    </div>
+                </div>
+            </section>
+            <div class="card article">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content has-text-centered" style="overflow: hidden;">
+                            <% if(currentUser) { %>
+                            <p class="title article-title"><a href="/blog/new" role="button" style="line-height: 1.5">Make a new Blogpost</a></p>
+                            <% } else { %>
+                            <p class="title article-title"><a href="/register" role="button" style="line-height: 1.5">Become a member!</a></p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mw7 center">
+        <% if (blogposts.length != 0) { %>
+		    <% blogposts.forEach(function(blogpost){ %>
+                <div class="card">
+                    <article class="pv4 bt bb b--black-10 ph3 ph0-l">
+                <div class="flex flex-column flex-row-ns">
+
+                    <div class="w-100 w-60-ns pl4-ns pr3-ns order-2 order-1-ns">
+
+                            <h1 class="f2 athelas mt0 lh-title"><%= blogpost.name %></h1>
+                            <h1 class="f6 athelas mt0 lh-title"><%= blogpost.date %></h1>
+                         <p class="f5 lh-copy athelas">
+                            <%= blogpost.description %>
+                            </p>
+                        <a href="/blog/<%=blogpost._id %>" class="btn btn-primary">More Info</a>
+
+                    </div>
+                    <div class="pl3-ns order-1 order-2-ns mb4 mb0-ns w-100 w-40-ns">
+
+                    </div>
+
+                </div>
+            </article>
+                </div>
+		    <% }); %>
+        <% } else { %>
+
+            <h4 class="f3 ma4 tc">Nothing here yet! You can add a post by <a href="/login">logging in</a> or <a href="/register">signing up</a></h4>
+        <% } %>
+    </section>
+
+
+
+</main>
+<% include ../partials/footer %>
+

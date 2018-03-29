@@ -1,0 +1,27 @@
+<nav class="navbar hero is-danger is-bold">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../">
+                Blogbleh
+            </a>
+            <span class="navbar-burger burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div class="navbar-menu" id="navbarMenu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="/blog">Blogposts</a>
+          <% if(!currentUser) { %>
+             <a class="navbar-item" href="/login">Login</a>
+             <a class="navbar-item" href="/register">Sign Up</a>
+          <%} else { %>
+             <a class="navbar-item" href="#">Signed as <%= currentUser.username %></a>
+             <a class="navbar-item" href="/logout">Logout</a>
+          <% } %>
+          </div>
+      </div>
+    </div>
+ </nav>
+

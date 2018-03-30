@@ -4,14 +4,14 @@
         <div class="fl pa3 pa4-ns bg-white black-70 measure-narrow f3 times">
             <header class="bb b--black-70 pv4">
                 <h3 class="f2 fw7 ttu tracked lh-title mt0 mb3 avenir"><%= blogposts.name %></h3>
-                <p class="times lh-copy measure f4 mt0"><%= blogposts.date %></p>
+                <p class="times lh-copy measure f4 mt0"><%= moment(blogposts.date).fromNow() %></p>
             </header>
             <section class="pt5 pb4">
                 <p class="times lh-copy measure f4 mt0"><%= blogposts.description %></p>
             </section>
             <a href="/blog/<%= blogposts._id %>/comments/new">Add New Comment</a>
 
-            <% if(currentUser && blogposts.author.id.equals(currentUser._id)) { %>
+            <% if(currentUser && blogposts.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
                       <a href="/blog/<%= blogposts._id %>/edit">Edit</a>
                      <form action="/blog/<%= blogposts._id %>?_method=DELETE" method="POST">
                 <button>Delete</button>
@@ -21,8 +21,10 @@
     </div>
 
     <div class="pa3 pa4-ns bt b--black mt-5">
+        <h2 class="f2"> This post has <%= blogposts.comments.length %> comment(s) available</h2>
         <% blogposts.comments.forEach(function(comment){ %>
                 <strong><%= comment.author.username %></strong>
+
                 <p>
                     <%= comment.text %>
                 </p>

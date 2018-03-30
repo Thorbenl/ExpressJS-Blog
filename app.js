@@ -36,10 +36,6 @@ let db = mongoose.connection;
 // Mongo Error Handler
 db.on('error', console.error.bind(console, 'connection error:'));
 
-// Feedback if connection to browser was successful
-db.once('open', () => {
-    console.log('Connected to database!');
-});
 
 //OUTCOMMENT THIS IF YOU WANT TO DELETE ALL DB ENTRIES :)
 //seedDB();
@@ -56,6 +52,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(flash());
+app.locals.moment = require('moment');
 
 
 app.use(methodOverride("_method"));

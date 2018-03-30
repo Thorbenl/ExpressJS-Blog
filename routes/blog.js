@@ -4,6 +4,29 @@ const express             = require('express');
       Comment             = require('../models/comment');
       middleware          = require("../middleware");
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+        filename: function(req, file, callback) {
+            callback(null, Date.now() + file.originalname);
+    }
+});
+
+const imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+const upload = multer({ storage: storage, fileFilter: imageFilter})
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: 'dghfdgity',
+    api_key: 245974188333435,
+    api_secret: "UJwM9Nc5f97cEbB9kpgIeSK9PuA"
+});
+
 // ====================
 // BLOG ROUTES
 // ====================
@@ -21,9 +44,10 @@ router.get("/", function(req, res){
 });
 
 //CREATE - add new blogpost to db
-router.post("/",middleware.isLoggedIn, function(req, res){
+router.post("/",middleware.isLoggedIn, upload.single('image'), function(req, res) {
+    cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
     const newBlogPostName = req.body.name;
-    const newBlogPostImage = req.body.image;
+    const newBlogPostImage = result.secure_url;
     const newBlogPostDescription = req.body.description;
     const author = {
         id: req.user._id,
@@ -37,14 +61,13 @@ router.post("/",middleware.isLoggedIn, function(req, res){
     };
     Blog.create(newBlogPost, function(err, newlyCreated){
         if(err){
-            console.log(err);
+            req.flash('error', err.message);
         } else {
             res.redirect("/blog");
         }
-
+    });
     });
 });
-
 
 //NEW - Show form to create new blogpost and add that blogpost to db
 router.get('/new', middleware.isLoggedIn, function (req,res) {

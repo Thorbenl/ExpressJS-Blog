@@ -99,8 +99,7 @@ app.use("/blog/:id/comments", commentRoutes);
 // ====================
 
 const port = process.env.PORT || 3000;
-const ip = process.env.IP || "localhost";
 
-app.listen(port, ip, function(){
+app.listen(port, function(){
     console.log("The Blog Server Has Started!");
 });

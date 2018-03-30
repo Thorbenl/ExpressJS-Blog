@@ -22,12 +22,12 @@ const commentRoutes     = require("./routes/comments"),
       blogRoutes        = require("./routes/blog"),
       indexRoutes       = require("./routes/index");
 
-
 // ====================
 // DATABASE CONFIG START
 // ====================
-// Connect to MongoDB
-mongoose.connect('mongodb://eratiosu:Akaishu23!@ds223019.mlab.com:23019/blog', {
+
+const dburl = process.env.DATABASEURL || "mongodb://localhost/blog";
+mongoose.connect(dburl, {
     useMongoClient: true
 });
 
@@ -80,7 +80,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     res.locals.error = req.flash("error");
-    res.locals.success  =req.flash("success");
+    res.locals.success = req.flash("success");
     next();
 });
 
@@ -97,6 +97,10 @@ app.use("/blog/:id/comments", commentRoutes);
 // ====================
 // HEY, LISTEN!
 // ====================
-app.listen(3000, function () {
-  console.log('Blog Server has started on port 3000!');
+
+const port = process.env.PORT || 3000;
+const ip = process.env.IP || "localhost";
+
+app.listen(port, ip, function(){
+    console.log("The Blog Server Has Started!");
 });

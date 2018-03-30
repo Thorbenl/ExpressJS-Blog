@@ -19,4 +19,10 @@
   </head>
   <body>
   <% include navbar %>
-<div class="container">
+  <div class="container">
+   <% if(success && success.length > 0) { %>
+       <p class="tc w-90 ba br2 pa3 ma2 green bg-washed-green"><%= success %></p>
+   <% } %>
+   <% if(error && error.length > 0) { %>
+       <p class="tc w-90 ba br2 pa3 ma2 red bg-washed-red"><%= error %></p>
+    <% } %>

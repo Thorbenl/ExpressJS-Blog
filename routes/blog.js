@@ -54,8 +54,9 @@ router.get('/new', middleware.isLoggedIn, function (req,res) {
 //Show - shows more info about a blogpost based on its ID
 router.get('/:id', function (req,res) {
     Blog.findById(req.params.id).populate("comments").exec(function(err, foundBlogpost) {
-        if(err){
-            console.log(err);
+        if(err || !foundBlogpost){
+            req.flash("error", "Blogpost not found, something went wrong!");
+            res.redirect("back")
         } else {
             res.render("Blog/show", {blogposts: foundBlogpost});
         }
@@ -94,6 +95,7 @@ router.delete("/:id",middleware.checkBlogpostOwnership, function(req, res){
         if(err){
             res.redirect("/blog");
         } else {
+            req.flash("success", "You just deleted the blogpost!");
             res.redirect("/blog");
         }
     });

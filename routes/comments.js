@@ -26,7 +26,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
     //lookup campground using ID
     Blog.findById(req.params.id, function(err, blog){
         if(err){
-            console.log(err);
+            req.flash("error", "Oops! Something went wrong!");
             res.redirect("/blog");
         } else {
             Comment.create(req.body.comment, function(err, comment){
@@ -47,12 +47,19 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 
 // COMMENT EDIT ROUTE
 router.get("/:comment_id/edit", middleware.checkCommentOwnership, function(req, res){
-    Comment.findById(req.params.comment_id, function(err, foundComment){
-        if(err){
-            res.redirect("back");
-        } else {
-            res.render("Comments/edit", {blogpost_id: req.params.id, comment: foundComment});
+    Blog.findById(req.params.id, function(err, foundPost) {
+        if(err || !foundPost) {
+            req.flash("error", "Cannot find the Blogpost");
+            return res.redirect("back");
         }
+        Comment.findById(req.params.comment_id, function(err, foundComment){
+            if(err || !foundComment){
+                req.flash("error", "Comment not found, something went wrong!");
+                res.redirect("back");
+            } else {
+                res.render("Comments/edit", {blogpost_id: req.params.id, comment: foundComment});
+            }
+        });
     });
 });
 
@@ -62,6 +69,7 @@ router.put("/:comment_id",middleware.checkCommentOwnership, function(req, res){
         if(err){
             res.redirect("back");
         } else {
+            req.flash("success", "Comment edited!");
             res.redirect("/blog/" + req.params.id );
         }
     });
@@ -74,6 +82,7 @@ router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, re
         if(err){
             res.redirect("back");
         } else {
+            req.flash("success", "Comment deleted!");
             res.redirect("/blog/" + req.params.id);
         }
     });

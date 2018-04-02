@@ -18,8 +18,7 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 
 ## See this project online:
 
-```
 [Online Version](https://fierce-savannah-11745.herokuapp.com/) 
-```
+
 
 

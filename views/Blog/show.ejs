@@ -1,42 +1,41 @@
 <% include ../partials/header %>
 <article class="pa3 pa5-ns">
     <div class="cf">
-        <div class="fl pa3 pa4-ns bg-white black-70 measure-narrow f3 times">
+        <div class="fl pa3 pa4-ns bg-white black-70 f3 times">
             <header class="bb b--black-70 pv4">
                 <h3 class="f2 fw7 ttu tracked lh-title mt0 mb3 avenir"><%= blogposts.name %></h3>
-                <p class="times lh-copy measure f4 mt0"><%= moment(blogposts.date).fromNow() %></p>
+                <h1 class="f6 athelas mt0 lh-title">Written <%= moment(blogposts.date).fromNow() %> by <%= blogposts.author.username %></h1>
+                <h1 class="f6 athelas mt0 lh-title"> This post has <%= blogposts.comments.length %> comment(s) available</h1>
             </header>
             <section class="pt5 pb4">
-                <p class="times lh-copy measure f4 mt0"><%= blogposts.description %></p>
+                <p class="times lh-copy f4 mt0"><%= blogposts.description %></p>
             </section>
-            <a href="/blog/<%= blogposts._id %>/comments/new">Add New Comment</a>
 
             <% if(currentUser && blogposts.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
-                      <a href="/blog/<%= blogposts._id %>/edit">Edit</a>
-                     <form action="/blog/<%= blogposts._id %>?_method=DELETE" method="POST">
-                <button>Delete</button>
+                      <a class="button is-primary" href="/blog/<%= blogposts._id %>/edit">Edit</a>
+                     <form class="post_edit" action="/blog/<%= blogposts._id %>?_method=DELETE" method="POST">
+                     <button class="button is-danger">Delete</button>
             </form>
             <% } %>
         </div>
     </div>
-
-    <div class="pa3 pa4-ns bt b--black mt-5">
-        <h2 class="f2"> This post has <%= blogposts.comments.length %> comment(s) available</h2>
-        <% blogposts.comments.forEach(function(comment){ %>
-                <strong><%= comment.author.username %></strong>
-
-                <p>
-                    <%= comment.text %>
-                </p>
+        <div class="w-100 fl pa3 pa4-ns bg-white black-70 f3 times">
+        <a class="button is-light" href="/blog/<%= blogposts._id %>/comments/new">New Comment</a>
+            <section class="bt b--black-70 mt4-ns">
+              <% blogposts.comments.forEach(function(comment){ %>
+                <p class="f5 pb1 pt4 athelas mt0 lh-title"><strong><%= comment.author.username %></strong></p>
+                <p class="f5 pb4 athelas mt0 lh-title"><%= comment.text %></p>
              <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
-                 <a href="/blog/<%=blogposts._id %>/comments/<%=comment._id %>/edit">Edit</a>
-                 <form action="/blog/<%=blogposts._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
-                     <input type="submit"  value="Delete">
+                 <a class="button is-primary" href="/blog/<%=blogposts._id %>/comments/<%=comment._id %>/edit">Edit</a>
+                 <form class="post_edit" action="/blog/<%=blogposts._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                     <button class="button is-danger">Delete</button>
                 </form>
              <% } %>
 
         <% }) %>
-    </div>
+            </section>
+        </div>
+
 
  </article>
 

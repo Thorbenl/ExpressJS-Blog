@@ -31,27 +31,23 @@
         </div>
     </section>
 
-    <section class="mw7 center">
+    <section class="column is-8 is-offset-2">
         <% if (blogposts.length != 0) { %>
 		    <% blogposts.forEach(function(blogpost){ %>
                 <div class="card">
                     <article class="pv4 bt bb b--black-10 ph3 ph0-l">
                 <div class="flex flex-column flex-row-ns">
 
-                    <div class="w-100 w-60-ns pl4-ns pr3-ns order-2 order-1-ns">
+                    <div class="w-100 w-100-ns pl4-ns pr3-ns order-2 order-1-ns">
                            <img src="<%= blogpost.image %>">
                             <h1 class="f2 athelas mt0 lh-title"><%= blogpost.name %></h1>
                             <h1 class="f6 athelas mt0 lh-title">Written <%= moment(blogpost.date).fromNow() %> by <%= blogpost.author.username %></h1>
                          <p class="f5 lh-copy athelas">
                             <%= blogpost.description %>
                             </p>
-                        <a href="/blog/<%=blogpost._id %>" class="btn btn-primary">More Info</a>
+                        <a class="button is-light" href="/blog/<%=blogpost._id %>" class="btn btn-primary">More Info</a>
 
                     </div>
-                    <div class="pl3-ns order-1 order-2-ns mb4 mb0-ns w-100 w-40-ns">
-
-                    </div>
-
                 </div>
             </article>
                 </div>

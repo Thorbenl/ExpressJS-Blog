@@ -7,22 +7,22 @@
   <head>
     <meta charset="UTF-8">
   	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
       <!-- Bulma Version 0.6.2-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" integrity="sha256-2k1KVsNPRXxZOsXQ8aqcZ9GOOwmJTMoOB5o5Qp1d6/s=" crossorigin="anonymous" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tachyons/4.9.1/tachyons.min.css" integrity="sha256-ZcuwCSmcbt2+RfDMFmnDpldLjxr1HzrotZtGKSvO+wE=" crossorigin="anonymous" />
-      <link rel="stylesheet" type="text/html" href="/assets/css/blog.css">
+      <link rel="stylesheet" type="text/css" href="/blog.css">
     <title>TechFlow</title>
   </head>
   <body>
   <% include navbar %>
   <div class="container">
    <% if(success && success.length > 0) { %>
-       <p class="tc w-90 ba br2 pa3 ma2 green bg-washed-green"><%= success %></p>
+       <p class="tc w-100 ba br2 pa3 ma2 green bg-washed-green"><%= success %></p>
    <% } %>
    <% if(error && error.length > 0) { %>
-       <p class="tc w-90 ba br2 pa3 ma2 red bg-washed-red"><%= error %></p>
+       <p class="tc w-100 ba br2 pa3 ma2 red bg-washed-red"><%= error %></p>
     <% } %>

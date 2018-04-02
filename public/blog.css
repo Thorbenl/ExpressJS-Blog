@@ -1,10 +1,8 @@
 html,body {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
-    background: #F0F2F4;
 }
 
-.icons i,
-.icons svg {
-    color: red;
+.post_edit {
+    display: inline;
 }
